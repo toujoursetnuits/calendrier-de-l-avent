@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le grand jeu de l'avent</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=Instrument+Serif:ital@0;1&family=Young+Serif&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Outils graphiques : effet "découpé aux ciseaux", "papier déchiré", étoile -->
+<svg style="position:absolute;width:0;height:0" aria-hidden="true">
+  <defs>
+    <filter id="decoupe" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7"/>
+      <feDisplacementMap in="SourceGraphic" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="dechire" x="-2%" y="-10%" width="104%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="3" seed="2"/>
+      <feDisplacementMap in="SourceGraphic" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <path id="etoile" d="M20 10L12.77 11.15L17.07 17.07L11.15 12.77L10 20L8.85 12.77L2.93 17.07L7.23 11.15L0 10L7.23 8.85L2.93 2.93L8.85 7.23L10 0L11.15 7.23L17.07 2.93L12.77 8.85Z"/>
+  </defs>
+</svg>
+
+<!-- Ciel étoilé en fond -->
+<svg class="ciel" aria-hidden="true">
+  <defs>
+    <pattern id="motif" width="380" height="380" patternUnits="userSpaceOnUse">
+      <g fill="#F3D45A">
+        <use href="#etoile" transform="translate(30 40) scale(2.6) rotate(8 10 10)"/>
+        <use href="#etoile" transform="translate(220 20) scale(1.6) rotate(-12 10 10)"/>
+        <use href="#etoile" transform="translate(290 150) scale(3.2) rotate(15 10 10)"/>
+        <use href="#etoile" transform="translate(130 200) scale(1.4)"/>
+        <use href="#etoile" transform="translate(30 290) scale(2.2) rotate(-6 10 10)"/>
+        <use href="#etoile" transform="translate(230 300) scale(1.8) rotate(20 10 10)"/>
+      </g>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#motif)"/>
+</svg>
+
+<header>
+  <div class="boite">
+    <h1>Le grand jeu<br>de l'avent</h1>
+    <svg class="paysage" viewBox="0 0 300 200" aria-hidden="true">
+      <g filter="url(#decoupe)">
+        <path d="M6 6L294 10L290 112L4 108Z" fill="#93BDE8"/>
+        <use href="#etoile" transform="translate(222 22) scale(1.6)" fill="#F3D45A"/>
+        <use href="#etoile" transform="translate(60 30) scale(.9)" fill="#F3D45A"/>
+        <path d="M62 112Q95 72 135 82Q160 70 190 86Q220 92 246 112Z" fill="#6A1720"/>
+        <path d="M4 108L290 112L294 196L8 194Z" fill="#22693A"/>
+        <path d="M140 110L162 110Q196 150 240 196L62 196Q112 150 140 110Z" fill="#F3A47F"/>
+      </g>
+    </svg>
+    <p class="etiquette">25 cases · 25 surprises</p>
+  </div>
+</header>
+
+<div class="plateau" id="plateau"><div class="pion" id="pion"></div></div>
+
+<p class="message" id="message"></p>
+<div class="controles">
+  <button class="etoile-btn" id="ouvrir" aria-label="Ouvrir la case du jour">
+    <span class="astre">
+      <svg viewBox="-6 -6 112 112" aria-hidden="true">
+        <polygon points="50,2 63,18.6 83.9,16.1 81.4,37 98,50 81.4,63 83.9,83.9 63,81.4 50,98 37,81.4 16.1,83.9 18.6,63 2,50 18.6,37 16.1,16.1 37,18.6"/>
+      </svg>
+    </span>
+    <span class="etoile-texte">Ouvrir<br>la case</span>
+  </button>
+  <button class="btn secondaire" onclick="ecranPions()">Changer de pion</button>
+</div>
+<div class="legende" id="legende"></div>
+
+<footer class="montagnes">
+  <svg viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">
+    <g filter="url(#dechire)">
+      <path d="M0 110L90 70L170 95L260 35L340 80L430 55L520 100L610 25L700 75L790 50L880 90L1000 45V200H0Z" fill="#CFC9BD"/>
+      <path d="M0 150L120 105L210 130L320 85L420 125L540 90L650 135L760 100L870 130L1000 100V200H0Z" fill="#EEE8DA"/>
+    </g>
+  </svg>
+  <p>Joyeux décembre ✦</p>
+</footer>
+
+<div class="voile" id="voile"></div>
+
+<script src="cadeaux.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

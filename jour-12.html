@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jour 12 · Quel roi mage es-tu ?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --creme: #F7F1E3;
+    --encre: #1B1A3A;
+    --or: #FFC93C;
+    --encens: #6C4BFF;
+    --myrrhe: #00A884;
+    --corail: #FF5A36;
+    --rose: #FF48B0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Space Grotesk", sans-serif;
+    background: var(--creme);
+    color: var(--encre);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow-x: hidden;
+  }
+
+  /* Formes décoratives (Bauhaus pop) */
+  .forme { position: fixed; z-index: 0; pointer-events: none; }
+  .f1 { width: 260px; height: 260px; border-radius: 50%; background: var(--or); top: -80px; left: -80px; }
+  .f2 { width: 0; height: 0; border-left: 140px solid transparent; border-right: 140px solid transparent;
+        border-bottom: 240px solid var(--encens); bottom: -60px; right: -40px; transform: rotate(-15deg); }
+  .f3 { width: 180px; height: 90px; border-radius: 180px 180px 0 0; background: var(--myrrhe);
+        bottom: 40px; left: -30px; transform: rotate(20deg); }
+  .f4 { width: 70px; height: 70px; background: var(--rose); top: 15%; right: 8%; transform: rotate(45deg); }
+  .f5 { width: 120px; height: 120px; border-radius: 50%; border: 18px solid var(--corail); top: 55%; right: -40px; }
+
+  .carte {
+    position: relative; z-index: 1;
+    background: #fff;
+    width: 100%; max-width: 620px;
+    border: 3px solid var(--encre);
+    border-radius: 28px;
+    box-shadow: 10px 10px 0 var(--encre);
+    padding: 40px 32px;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--corail); color: #fff;
+    font-weight: 700; font-size: .85rem;
+    letter-spacing: .05em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 999px;
+    border: 2px solid var(--encre);
+  }
+  h1 { font-family: "Fraunces", serif; font-weight: 800; font-size: clamp(2rem, 6vw, 2.8rem); line-height: 1.05; margin: 18px 0 12px; }
+  h2 { font-family: "Fraunces", serif; font-weight: 600; font-size: clamp(1.3rem, 4vw, 1.7rem); line-height: 1.2; margin-bottom: 22px; }
+  p { line-height: 1.6; }
+
+  .intro p { margin-bottom: 22px; }
+  .rois { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+  .pastille { padding: 6px 12px; border-radius: 999px; border: 2px solid var(--encre); font-weight: 500; font-size: .9rem; }
+
+  .btn {
+    font: inherit; font-weight: 700; font-size: 1rem;
+    cursor: pointer;
+    border: 3px solid var(--encre); border-radius: 16px;
+    padding: 14px 26px;
+    background: var(--encre); color: #fff;
+    box-shadow: 4px 4px 0 var(--corail);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--corail); }
+  .btn.secondaire { background: #fff; color: var(--encre); box-shadow: 4px 4px 0 var(--encre); }
+  .btn.secondaire:hover { box-shadow: 6px 6px 0 var(--encre); }
+
+  .progression { height: 12px; border: 2px solid var(--encre); border-radius: 999px; overflow: hidden; background: var(--creme); margin-bottom: 10px; }
+  .barre { height: 100%; width: 0; background: linear-gradient(90deg, var(--or), var(--rose), var(--encens)); transition: width .4s; }
+  .compteur { font-size: .85rem; font-weight: 500; opacity: .7; margin-bottom: 18px; }
+
+  .reponses { display: flex; flex-direction: column; gap: 12px; }
+  .reponse {
+    font: inherit; font-size: 1rem; line-height: 1.45;
+    text-align: left; cursor: pointer;
+    background: var(--creme);
+    border: 2.5px solid var(--encre); border-radius: 16px;
+    padding: 16px 18px;
+    transition: transform .15s, background .2s, box-shadow .15s;
+  }
+  .reponse:hover, .reponse:focus-visible { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--encre); outline: none; }
+  .reponse:nth-child(1):hover, .reponse:nth-child(1):focus-visible { background: #FFD3EC; }
+  .reponse:nth-child(2):hover, .reponse:nth-child(2):focus-visible { background: #FFEAB0; }
+  .reponse:nth-child(3):hover, .reponse:nth-child(3):focus-visible { background: #C8F1E3; }
+
+  .retour { margin-top: 20px; background: none; border: none; font: inherit; cursor: pointer; text-decoration: underline; opacity: .7; }
+  .retour:hover { opacity: 1; }
+
+  .resultat { text-align: center; }
+  .embleme {
+    width: 120px; height: 120px; border-radius: 50%;
+    margin: 10px auto 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3.4rem;
+    border: 3px solid var(--encre);
+    box-shadow: 6px 6px 0 var(--encre);
+  }
+  .resultat .texte { text-align: left; margin: 18px 0; }
+  .cadeau { background: var(--creme); border: 2px dashed var(--encre); border-radius: 16px; padding: 14px 16px; font-style: italic; text-align: left; margin-bottom: 22px; }
+
+  .scores { display: flex; flex-direction: column; gap: 8px; margin-bottom: 26px; text-align: left; }
+  .ligne-score { display: grid; grid-template-columns: 90px 1fr 24px; align-items: center; gap: 10px; font-size: .9rem; font-weight: 500; }
+  .jauge { height: 10px; border: 2px solid var(--encre); border-radius: 999px; overflow: hidden; background: var(--creme); }
+  .jauge span { display: block; height: 100%; width: 0; transition: width .8s ease; }
+
+  .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  .cache { display: none; }
+  .apparait { animation: apparait .45s ease; }
+  @keyframes apparait { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+  .confetti { position: fixed; top: -20px; width: 10px; height: 14px; z-index: 5; pointer-events: none; animation: tombe linear forwards; }
+  @keyframes tombe { to { transform: translateY(110vh) rotate(720deg); } }
+
+  @media (max-width: 480px) {
+    .carte { padding: 30px 20px; box-shadow: 6px 6px 0 var(--encre); }
+  }
+</style>
+</head>
+<body>
+
+  <div class="forme f1"></div>
+  <div class="forme f2"></div>
+  <div class="forme f3"></div>
+  <div class="forme f4"></div>
+  <div class="forme f5"></div>
+
+  <main class="carte">
+
+    <!-- Écran verrouillé -->
+    <section id="ecran-verrou" class="cache">
+      <span class="badge">Jour 12</span>
+      <h1>Patience… ✨</h1>
+      <p>Cette case s'ouvre le 12 décembre. Même Gaspard a attendu l'étoile, alors on revient bientôt !</p>
+    </section>
+
+    <!-- Intro -->
+    <section id="ecran-intro" class="intro cache">
+      <span class="badge">Jour 12 · Ton cadeau du jour</span>
+      <h1>Quel roi mage es-tu ?</h1>
+      <p>Ils ont suivi une étoile, traversé des déserts et apporté de l'or, de l'encens et de la myrrhe. Mais toi, lequel des trois es-tu vraiment ? 8 questions pour le découvrir.</p>
+      <div class="rois">
+        <span class="pastille" style="background: var(--or);">👑 Melchior</span>
+        <span class="pastille" style="background: var(--encens); color: #fff;">✨ Gaspard</span>
+        <span class="pastille" style="background: var(--myrrhe); color: #fff;">🌿 Balthazar</span>
+      </div>
+      <button class="btn" id="btn-commencer">Suivre l'étoile →</button>
+    </section>
+
+    <!-- Questions -->
+    <section id="ecran-question" class="cache">
+      <div class="progression"><div class="barre" id="barre"></div></div>
+      <p class="compteur" id="compteur"></p>
+      <h2 id="question"></h2>
+      <div class="reponses" id="reponses"></div>
+      <button class="retour cache" id="btn-retour">← Question précédente</button>
+    </section>
+
+    <!-- Résultat -->
+    <section id="ecran-resultat" class="resultat cache">
+      <span class="badge">Ton résultat</span>
+      <div class="embleme" id="embleme"></div>
+      <h1 id="nom-roi"></h1>
+      <p class="texte" id="texte-roi"></p>
+      <p class="cadeau" id="cadeau-roi"></p>
+      <div class="scores" id="scores"></div>
+      <div class="actions">
+        <button class="btn" id="btn-rejouer">Rejouer</button>
+        <a class="btn secondaire" href="index.html" style="text-decoration:none;">← Retour au calendrier</a>
+      </div>
+    </section>
+
+  </main>
+
+<script>
+  /* ========= RÉGLAGES ========= */
+  const VERROU_ACTIF = false;                    // mettre true pour bloquer avant le 12 décembre
+  const DATE_OUVERTURE = new Date(2026, 11, 12); // les mois commencent à 0 : 11 = décembre
+
+  /* ========= LES ROIS ========= */
+  const ROIS = {
+    M: {
+      nom: "Melchior",
+      titre: "le Sage lumineux",
+      emoji: "👑",
+      couleur: "#FFC93C",
+      texte: "Tu as offert l'or parce que tu sais que les belles choses durent. Ton agenda a un code couleur, et tu as toujours une citation en réserve pour chaque situation. Tu as vu passer les modes et les révolutions (et tu en as fait une ou deux). Les autres viennent te demander conseil, même s'ils lèvent les yeux au ciel quand tu commences par « en fait, historiquement… ».",
+      cadeau: "Ton cadeau de décembre : une soirée au coin du feu avec un bon livre. Tu l'as bien méritée."
+    },
+    G: {
+      nom: "Gaspard",
+      titre: "le Rêveur enthousiaste",
+      emoji: "✨",
+      couleur: "#6C4BFF",
+      texte: "Tu as offert l'encens parce que, pour toi, ce qui compte vraiment ne se touche pas : une ambiance, un frisson, un souvenir. Comme sa fumée, tu t'élèves, tu te faufiles partout et tu laisses une trace longtemps après être parti. Tu dis oui avant même de savoir à quoi, et tu transformes un mardi soir banal en une histoire qu'on racontera encore dans dix ans. C'est toi qui as vu l'étoile en premier, évidemment, puisque tu as toujours la tête dans les nuages.",
+      cadeau: "Ton cadeau de décembre : une nuit à regarder le ciel en faisant des vœux un peu fous."
+    },
+    B: {
+      nom: "Balthazar",
+      titre: "le Cœur ancré",
+      emoji: "🌿",
+      couleur: "#00A884",
+      texte: "Tu as offert la myrrhe parce que tu penses toujours à ce qui fait du bien pour de vrai. Tu as la trousse à pharmacie, les snacks et une écoute infinie, et tu es le seul à avoir remarqué que le chameau était fatigué. On te dit raisonnable. En réalité, tu es surtout la personne sur qui tout le monde peut compter.",
+      cadeau: "Ton cadeau de décembre : laisse quelqu'un prendre soin de toi, pour une fois."
+    }
+  };
+
+  /* ========= LES QUESTIONS ========= */
+  const QUESTIONS = [
+    {
+      q: "Quel cadeau offres-tu le plus souvent ?",
+      r: {
+        M: "Des bijoux",
+        G: "Tu es adepte du swap, plutôt que du cadeau unique",
+        B: "Quelque chose d'utile (et tu as gardé le ticket de caisse au cas où)"
+      }
+    },
+    {
+      q: "En voyage :",
+      r: {
+        M: "L'itinéraire est choisi, les hostels sont bookés, la voiture de location est réservée et les visites culturelles sont planifiées.",
+        G: "Tu as réservé ton billet d'avion avant-hier, tu n'as rien planifié, et tu rembourseras tes potes sur Tricount à la fin des vacances.",
+        B: "Tu as acheté le Guide du routard, que tu liras dans l'avion."
+      }
+    },
+    {
+      q: "Ton date idéal :",
+      r: {
+        M: "Un date au musée ou à la bibliothèque",
+        G: "Du trampoline ou un plouf au canal Saint-Martin",
+        B: "Boire un verre dans un petit bar à vin nat', rien de mieux pour vraiment faire connaissance"
+      }
+    },
+    {
+      q: "Petit·e, tu rêvais d'être…",
+      r: {
+        M: "Grand·e chercheur·se reconnu·e dans le monde entier",
+        G: "Artiste, de préférence circassien·ne, mais tu étais ok pour devenir comédien·ne aussi",
+        B: "Médecin ou prof"
+      }
+    },
+    {
+      q: "Ton pire red flag (maman, papa : ça veut dire « défaut »)",
+      r: {
+        M: "Avoir besoin de tout intellectualiser (c'est pas parce que je porte un jean et écoute Lana Del Rey que je suis atlantiste)",
+        G: "Te croire déconstruit·e et méga subversif·ve parce que tu commandes un bissap au barman (on souffle)",
+        B: "Toujours faire le choix raisonnable et raisonné (laisse-moi faire mes choix sur Decision Roulette en paix stp)"
+      }
+    },
+    {
+      q: "Le shopping :",
+      r: {
+        M: "Peu de pièces, mais de qualité (bonus si ta marque préférée est Asphalte ou Saint James)",
+        G: "Tu n'achètes qu'au coup de cœur (des pièces importables mais iconiques, donc)",
+        B: "Vinted, le comparateur de prix et la seconde main (mode éco-responsable et raisonnable)"
+      }
+    },
+    {
+      q: "Tu te mobilises en politique…",
+      r: {
+        M: "Tu lançais des pavés en Mai 68, maintenant tu signes des tribunes et tu relaies des pétitions",
+        G: "La manif' bb",
+        B: "Le vote ? Simple mais efficace (et tu as fait la procuration de ta grand-mère)"
+      }
+    },
+    {
+      q: "Ton jeu de société préféré :",
+      r: {
+        M: "Le Trivial Pursuit",
+        G: "Les Aventuriers du Rail, Dixit ou Citadelles",
+        B: "Un jeu coopératif (Pandemic, The Crew, Hanabi)"
+      }
+    }
+  ];
+
+  // Ordre de départage en cas d'égalité : Q7, puis Q8, puis Q1… (index commençant à 0)
+  const ORDRE_DEPARTAGE = [6, 7, 0, 1, 2, 3, 4, 5];
+
+  /* ========= LOGIQUE ========= */
+  let reponses = [];
+  let index = 0;
+  const $ = (id) => document.getElementById(id);
+
+  function afficherEcran(id) {
+    ["ecran-verrou", "ecran-intro", "ecran-question", "ecran-resultat"].forEach(e => $(e).classList.add("cache"));
+    const ecran = $(id);
+    ecran.classList.remove("cache", "apparait");
+    void ecran.offsetWidth; // relance l'animation
+    ecran.classList.add("apparait");
+  }
+
+  function melanger(tableau) {
+    const t = [...tableau];
+    for (let i = t.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [t[i], t[j]] = [t[j], t[i]];
+    }
+    return t;
+  }
+
+  function afficherQuestion() {
+    const question = QUESTIONS[index];
+    $("compteur").textContent = `Question ${index + 1} / ${QUESTIONS.length}`;
+    $("barre").style.width = (index / QUESTIONS.length * 100) + "%";
+    $("question").textContent = question.q;
+
+    const zone = $("reponses");
+    zone.innerHTML = "";
+    melanger(["M", "G", "B"]).forEach(cle => {
+      const bouton = document.createElement("button");
+      bouton.className = "reponse";
+      bouton.textContent = question.r[cle];
+      bouton.addEventListener("click", () => choisir(cle));
+      zone.appendChild(bouton);
+    });
+
+    $("btn-retour").classList.toggle("cache", index === 0);
+    afficherEcran("ecran-question");
+  }
+
+  function choisir(cle) {
+    reponses[index] = cle;
+    index++;
+    if (index < QUESTIONS.length) afficherQuestion();
+    else afficherResultat();
+  }
+
+  function calculerResultat() {
+    const scores = { M: 0, G: 0, B: 0 };
+    reponses.forEach(cle => scores[cle]++);
+    const max = Math.max(...Object.values(scores));
+    const exAequo = Object.keys(scores).filter(cle => scores[cle] === max);
+
+    if (exAequo.length === 1) return { gagnant: exAequo[0], scores };
+
+    for (const i of ORDRE_DEPARTAGE) {
+      if (exAequo.includes(reponses[i])) return { gagnant: reponses[i], scores };
+    }
+  }
+
+  function afficherResultat() {
+    $("barre").style.width = "100%";
+    const { gagnant, scores } = calculerResultat();
+    const roi = ROIS[gagnant];
+
+    $("embleme").textContent = roi.emoji;
+    $("embleme").style.background = roi.couleur;
+    $("nom-roi").textContent = `Tu es ${roi.nom}, ${roi.titre}`;
+    $("texte-roi").textContent = roi.texte;
+    $("cadeau-roi").textContent = roi.cadeau;
+
+    const zoneScores = $("scores");
+    zoneScores.innerHTML = "";
+    Object.keys(ROIS).forEach(cle => {
+      const ligne = document.createElement("div");
+      ligne.className = "ligne-score";
+      ligne.innerHTML = `<span>${ROIS[cle].emoji} ${ROIS[cle].nom}</span>
+        <div class="jauge"><span style="background:${ROIS[cle].couleur}"></span></div>
+        <span>${scores[cle]}</span>`;
+      zoneScores.appendChild(ligne);
+      setTimeout(() => {
+        ligne.querySelector(".jauge span").style.width = (scores[cle] / QUESTIONS.length * 100) + "%";
+      }, 150);
+    });
+
+    afficherEcran("ecran-resultat");
+    lancerConfettis();
+  }
+
+  function lancerConfettis() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const couleurs = ["#FFC93C", "#6C4BFF", "#00A884", "#FF5A36", "#FF48B0", "#2E4BFF"];
+    for (let i = 0; i < 70; i++) {
+      const c = document.createElement("div");
+      c.className = "confetti";
+      c.style.left = Math.random() * 100 + "vw";
+      c.style.background = couleurs[Math.floor(Math.random() * couleurs.length)];
+      c.style.borderRadius = Math.random() > .5 ? "50%" : "2px";
+      c.style.animationDuration = 2.5 + Math.random() * 2 + "s";
+      c.style.animationDelay = Math.random() * .6 + "s";
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 5500);
+    }
+  }
+
+  function recommencer() {
+    reponses = [];
+    index = 0;
+    afficherQuestion();
+  }
+
+  /* ========= DÉMARRAGE ========= */
+  $("btn-commencer").addEventListener("click", recommencer);
+  $("btn-rejouer").addEventListener("click", recommencer);
+  $("btn-retour").addEventListener("click", () => {
+    if (index > 0) { index--; afficherQuestion(); }
+  });
+
+  if (VERROU_ACTIF && new Date() < DATE_OUVERTURE) afficherEcran("ecran-verrou");
+  else afficherEcran("ecran-intro");
+</script>
+</body>
+</html>
