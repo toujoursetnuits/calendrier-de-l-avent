@@ -206,9 +206,41 @@ Tant de gens meurent sans savoir, et ne sauront jamais ce dont ils étaient capa
   20: { type:"citation", titre:"",
         texte:`En fin de compte, tout s'arrange, sauf la difficulté d'être, qui ne s'arrange pas.`,
         auteur:"Jean Cocteau, <em>La Difficulté d'être</em>", image:"", lien:"" },
-  21: { type:"carte",    titre:"", texte:"", auteur:"", image:"", lien:"" },
-  22: { type:"science",  titre:"", texte:"", auteur:"", image:"", lien:"" },
+  
+21: { type: "citation", titre: "",
+  texte: `Il y a aujourd'hui un défaut qu'on n'encouragera jamais assez :
+
+c'est le manque de logique, le défaut de rigueur,
+l'inconséquence.
+
+Ce qui sauve l'humanité c'est que les hommes sont pleins
+de trous et de failles, ne vont pas toujours jusqu'au bout
+de leurs idées.`,
+  auteur: "Claude Roy, Permis de séjour",
+  image: "",
+  lien: ""
+},
+
+  22: {
+  type: "citation",
+  titre: "",
+  texte: `Et j'ai pleuré.
+
+Beaucoup.
+Beaucoup trop.
+
+Certaines fois, certaines larmes servent à amorcer toutes les autres. J'ai tout pleuré. Tout ce que je n'aimais pas chez moi, les bêtises inavouées que j'avais commises jusque-là et tout ce que j'avais perdu en cours de route depuis que j'étais en âge de comprendre que certaines choses se perdaient à jamais.
+
+J'ai pleuré de la place de l'Étoile à la place de Clichy.
+
+J'ai pleuré tout Paris. J'ai pleuré toute ma vie.`,
+  auteur: "Anna Gavalda, La vie en mieux",
+  image: "",
+  lien: ""
+},
+
   23: { type:"musique",  titre:"", texte:"", auteur:"", image:"", lien:"" },
   24: { type:"lecture",  titre:"", texte:"", auteur:"", image:"", lien:"" },
   25: { titre:"Joyeux Noël !", texte:"Votre sapin est décoré avec tous les cadeaux de décembre." },
 };
+
