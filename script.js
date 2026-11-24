@@ -428,6 +428,7 @@ function ouvrirCadeau(j){
       <button class="btn" onclick="fermer()">Fermer</button></div></div>`);
     return;
   }
+  if(c.fragments){ ouvrirFragments(j,c); return; }
   const cat=catDe(j);
   let h=`<div class="carte"><div class="carte-tete" style="background:${cat.couleur};color:${cat.encre}">
     <span class="grand-num">${j}</span><span class="etiq">décembre<br>${cat.nom}</span></div><div class="carte-corps">`;
@@ -439,6 +440,35 @@ function ouvrirCadeau(j){
   if(c.lien) h+=`<p><a href="${c.lien}" target="_blank" rel="noopener">Découvrir →</a></p>`;
   if(!c.titre && !c.texte) h+=`<p>🎁 Ce cadeau n'est pas encore rempli !</p>`;
   afficher(h+`<button class="btn" style="margin-top:1rem" onclick="fermer()">Fermer</button></div></div>`);
+}
+
+/* ---------- Case à morceaux (ex. Sagan, case 23) ----------
+   9 photos découpées sur fond rouge ; un clic sur un morceau révèle sa citation. */
+const ROTATIONS=[-3,2,-1.5,2.5,-2,1,-2.5,1.5,-1];
+function ouvrirFragments(j,c){
+  const cat=catDe(j);
+  let h=`<div class="carte"><div class="carte-tete" style="background:${cat.couleur};color:${cat.encre}">
+    <span class="grand-num">${j}</span><span class="etiq">décembre<br>${c.titre||cat.nom}</span></div>
+    <div class="carte-corps"><p class="frag-consigne">Neuf morceaux, neuf citations. Choisissez-en un.</p>
+    <div class="frag-fond"><div class="frag-grille">`;
+  c.fragments.forEach((f,i)=>{
+    h+=`<button class="frag-bout" style="--r:${ROTATIONS[i%9]}deg;--d:${i*70}ms"
+      onclick="montrerFragment(${j},${i})" aria-label="Morceau ${i+1}">
+      <span class="frag-num">${i+1}</span>
+      <img src="${f.image}" alt="" onerror="this.remove()"></button>`;
+  });
+  h+=`</div></div><div class="frag-citation" id="frag-citation" aria-live="polite"></div>
+    <button class="btn" style="margin-top:1rem" onclick="fermer()">Fermer</button></div></div>`;
+  afficher(h);
+}
+function montrerFragment(j,i){
+  const f=CADEAUX[j].fragments[i];
+  document.querySelectorAll(".frag-bout").forEach((b,k)=>b.classList.toggle("actif",k===i));
+  document.querySelectorAll(".frag-bout")[i].classList.add("vu");
+  const zone=document.getElementById("frag-citation");
+  zone.innerHTML=`<blockquote>${f.texte}</blockquote>${f.source?`<p>— Françoise Sagan, ${f.source}</p>`:""}`;
+  zone.classList.remove("apparait"); void zone.offsetWidth; zone.classList.add("apparait");
+  zone.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 
 /* ---------- Choix du perso ---------- */

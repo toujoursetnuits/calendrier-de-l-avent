@@ -143,6 +143,27 @@ h1{font-family:'Young Serif',serif;font-weight:400;color:var(--vert);font-size:c
 @media (max-width:640px){
   .etoile-btn{width:126px;height:126px;font-size:.95rem}
 }
+/* Case à morceaux (Sagan) : photos découpées sur papier rouge */
+.frag-consigne{font-family:'Instrument Serif',serif;font-style:italic;font-size:1.25rem;text-align:center}
+.frag-fond{background:#D3211B;border-radius:18px;padding:clamp(1.2rem,6vw,2rem);margin:.6rem 0;
+  box-shadow:inset 0 0 40px rgba(60,0,0,.35)}
+.frag-grille{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,4vw,1.2rem);max-width:290px;margin:auto}
+.frag-bout{position:relative;aspect-ratio:1;border:0;padding:3px;background:#F4F0E6;cursor:pointer;overflow:hidden;
+  transform:rotate(var(--r));box-shadow:1px 2px 4px rgba(0,0,0,.45);transition:transform .2s,opacity .3s;
+  animation:frag-pose .5s var(--d) both}
+.frag-bout:hover,.frag-bout:focus-visible{transform:rotate(0) scale(1.1);z-index:2;outline:none}
+.frag-bout.actif{transform:rotate(0) scale(1.14);z-index:3;box-shadow:0 0 0 3px var(--beurre),2px 4px 10px rgba(0,0,0,.5)}
+.frag-bout.vu:not(.actif){opacity:.6}
+.carte-corps .frag-bout img{position:absolute;inset:3px;width:calc(100% - 6px);height:calc(100% - 6px);object-fit:cover;
+  margin:0;border-radius:0;filter:grayscale(1) contrast(1.2)}
+.frag-num{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#1E1A1A;
+  color:#F4F0E6;font-family:'Instrument Serif',serif;font-size:1.8rem}
+.frag-citation:empty{display:none}
+.carte-corps .frag-citation blockquote{font-size:1.3rem}
+.frag-citation.apparait{animation:frag-monte .45s ease-out}
+@keyframes frag-pose{from{opacity:0;transform:rotate(calc(var(--r) * 4)) translateY(-14px) scale(1.2)}}
+@keyframes frag-monte{from{opacity:0;transform:translateY(10px)}}
+
 @media (prefers-reduced-motion:reduce){
   *{animation:none !important;transition:none !important}
 }
