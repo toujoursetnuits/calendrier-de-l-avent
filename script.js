@@ -449,8 +449,7 @@ const COLLAGE=[ // rotation (deg), décalage vertical (px), taille (%)
 function ouvrirFragments(j,c){
   let h=`<div class="carte carte-collage"><div class="collage">
     <div class="collage-titre"><span class="collage-jour">${j}</span>
-      <span class="collage-nom">Françoise<br>Sagan</span>
-      <span class="collage-etiq">choisissez un morceau</span></div>
+      <span class="collage-nom">Françoise Sagan</span></div>
     <div class="collage-grille">`;
   c.fragments.forEach((f,i)=>{
     const [r,y,t]=COLLAGE[i%9];
