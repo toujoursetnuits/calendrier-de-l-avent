@@ -443,30 +443,31 @@ function ouvrirCadeau(j){
 }
 
 /* ---------- Case à morceaux (ex. Sagan, case 23) ----------
-   9 photos découpées sur fond rouge ; un clic sur un morceau révèle sa citation. */
-const ROTATIONS=[-3,2,-1.5,2.5,-2,1,-2.5,1.5,-1];
+   Collage de 9 photos détourées sur papier rouge ; un clic révèle la citation. */
+const COLLAGE=[ // rotation (deg), décalage vertical (px), taille (%)
+  [-6,6,100],[4,-4,92],[-3,10,96],[5,-6,98],[-4,0,104],[7,4,90],[-5,-2,96],[3,8,100],[-7,0,94]];
 function ouvrirFragments(j,c){
-  const cat=catDe(j);
-  let h=`<div class="carte"><div class="carte-tete" style="background:${cat.couleur};color:${cat.encre}">
-    <span class="grand-num">${j}</span><span class="etiq">décembre<br>${c.titre||cat.nom}</span></div>
-    <div class="carte-corps"><p class="frag-consigne">Neuf morceaux, neuf citations. Choisissez-en un.</p>
-    <div class="frag-fond"><div class="frag-grille">`;
+  let h=`<div class="carte carte-collage"><div class="collage">
+    <div class="collage-titre"><span class="collage-jour">${j}</span>
+      <span class="collage-nom">Françoise<br>Sagan</span>
+      <span class="collage-etiq">choisissez un morceau</span></div>
+    <div class="collage-grille">`;
   c.fragments.forEach((f,i)=>{
-    h+=`<button class="frag-bout" style="--r:${ROTATIONS[i%9]}deg;--d:${i*70}ms"
-      onclick="montrerFragment(${j},${i})" aria-label="Morceau ${i+1}">
-      <span class="frag-num">${i+1}</span>
-      <img src="${f.image}" alt="" onerror="this.remove()"></button>`;
+    const [r,y,t]=COLLAGE[i%9];
+    h+=`<button class="collage-bout" style="--r:${r}deg;--y:${y}px;--t:${t}%;--d:${i*60}ms"
+      onclick="montrerFragment(${j},${i})" aria-label="Citation ${i+1}"><img src="${f.image}" alt=""></button>`;
   });
-  h+=`</div></div><div class="frag-citation" id="frag-citation" aria-live="polite"></div>
-    <button class="btn" style="margin-top:1rem" onclick="fermer()">Fermer</button></div></div>`;
+  h+=`</div><div class="collage-citation" id="frag-citation" aria-live="polite"></div>
+    <button class="btn collage-fermer" onclick="fermer()">Fermer</button></div></div>`;
   afficher(h);
 }
 function montrerFragment(j,i){
-  const f=CADEAUX[j].fragments[i];
-  document.querySelectorAll(".frag-bout").forEach((b,k)=>b.classList.toggle("actif",k===i));
-  document.querySelectorAll(".frag-bout")[i].classList.add("vu");
+  const f=CADEAUX[j].fragments[i], boutons=document.querySelectorAll(".collage-bout");
+  boutons.forEach((b,k)=>b.classList.toggle("actif",k===i));
+  boutons[i].classList.add("vu");
+  document.querySelector(".collage-grille").classList.add("choisi");
   const zone=document.getElementById("frag-citation");
-  zone.innerHTML=`<blockquote>${f.texte}</blockquote>${f.source?`<p>— Françoise Sagan, ${f.source}</p>`:""}`;
+  zone.innerHTML=`<blockquote>${f.texte}</blockquote>${f.source?`<p class="collage-source">Françoise Sagan · ${f.source}</p>`:""}`;
   zone.classList.remove("apparait"); void zone.offsetWidth; zone.classList.add("apparait");
   zone.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
