@@ -279,7 +279,7 @@ J'ai pleuré tout Paris. J'ai pleuré toute ma vie.`,
             texte:`Sans partager avec mon père cette aversion pour la laideur qui nous faisait souvent fréquenter des gens stupides, j’éprouvais en face des gens dénués de tout charme physique une sorte de gêne, d’absence ; leur résignation à ne pas plaire me semblait une infirmité indécente. Car, que cherchions-nous, sinon plaire ? Je ne sais pas encore aujourd'hui si ce goût de conquête cache une surabondance de vitalité, un goût d'emprise ou le besoin furtif, inavoué, d'être rassuré sur soi-même, soutenu.`,
             source:"<em>Bonjour tristesse</em>" },
         ] },
-  24: { type:"lecture",  titre:"", texte:"", auteur:"", image:"", lien:"" },
+  24: { type:"lecture",  titre:"", texte:"Baptiste", auteur:"", image:"", lien:"" },
   25: { titre:"Joyeux Noël !", texte:"Votre sapin est décoré avec tous les cadeaux de décembre." },
 };
 
