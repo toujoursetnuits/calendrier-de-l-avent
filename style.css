@@ -183,7 +183,7 @@ h1{font-family:'Young Serif',serif;font-weight:400;color:var(--vert);font-size:c
 .duel-bout{flex:0 1 38%;height:clamp(220px,46vw,340px);border:0;background:none;padding:0;cursor:pointer;
   display:flex;align-items:center;justify-content:center;transform:rotate(var(--r));
   transition:transform .25s cubic-bezier(.3,1.6,.5,1),opacity .3s,filter .3s;animation:collage-pose .55s var(--d) both}
-.duel-bout img{max-width:100%;max-height:100%;width:auto;height:auto;margin:0;border-radius:0;
+.duel-bout img{width:100%;height:100%;object-fit:contain;margin:0;border-radius:0;
   filter:drop-shadow(5px 6px 0 rgba(0,0,0,.28))}
 .duel-bout:hover,.duel-bout:focus-visible{transform:rotate(0) scale(1.08);outline:none}
 .duel-scene.choisi .duel-bout:not(.actif){opacity:.45;filter:grayscale(1)}
