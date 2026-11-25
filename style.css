@@ -176,6 +176,26 @@ h1{font-family:'Young Serif',serif;font-weight:400;color:var(--vert);font-size:c
 @keyframes collage-pose{from{opacity:0;transform:translateY(-18px) rotate(calc(var(--r) * 3)) scale(1.25)}}
 @keyframes collage-monte{from{opacity:0;transform:rotate(-4deg) translateY(14px) scale(.96)}}
 
+/* Case « this or that » (Boudin ou Boudin) : même collage pop, en couleurs, fond jaune */
+.carte.carte-duel{background:#FFC93C;max-width:760px}
+.carte-duel .collage-jour{color:#111}
+.duel-scene{display:flex;align-items:center;justify-content:center;gap:clamp(.5rem,4vw,2.5rem);padding:.4rem 0 .6rem}
+.duel-bout{flex:0 1 38%;height:clamp(220px,46vw,340px);border:0;background:none;padding:0;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transform:rotate(var(--r));
+  transition:transform .25s cubic-bezier(.3,1.6,.5,1),opacity .3s,filter .3s;animation:collage-pose .55s var(--d) both}
+.duel-bout img{max-width:100%;max-height:100%;width:auto;height:auto;margin:0;border-radius:0;
+  filter:drop-shadow(5px 6px 0 rgba(0,0,0,.28))}
+.duel-bout:hover,.duel-bout:focus-visible{transform:rotate(0) scale(1.08);outline:none}
+.duel-scene.choisi .duel-bout:not(.actif){opacity:.45;filter:grayscale(1)}
+.duel-bout.actif{transform:rotate(0) scale(1.1)}
+.duel-ou{flex:none;width:clamp(3.2rem,10vw,4.4rem);aspect-ratio:1;border-radius:50%;background:#111;color:#FFC93C;
+  display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-style:italic;
+  font-size:clamp(1.6rem,5vw,2.2rem);transform:rotate(-8deg);box-shadow:3px 3px 0 #F4F0E6}
+.duel-texte{font-family:'Instrument Serif',serif;font-size:1.35rem;line-height:1.3}
+.collage-citation.avec-oeuvre{padding:.8rem .8rem .7rem;transform:rotate(1deg);max-width:520px;margin-left:auto;margin-right:auto}
+.duel-oeuvre{display:block;width:100%;height:auto;margin:0;border-radius:0}
+.avec-oeuvre .collage-source{margin-top:.6rem;text-transform:none;font-size:.85rem;letter-spacing:0}
+
 @media (prefers-reduced-motion:reduce){
   *{animation:none !important;transition:none !important}
 }

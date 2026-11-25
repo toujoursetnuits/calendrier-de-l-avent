@@ -184,9 +184,16 @@ Ils se convoitent.
 Je ne t’aime pas, tu ne m’aimes pas. Nous nous convoitons. Et c’est terrible, car de l’amour je ne sais rien, et de la convoitise tout un roman.`,
         auteur:"Salomé", image:"", lien:"" },
 
-  16: { type:"citation", titre:"",
-        texte:`Au moment de la crise qui culmine vers Pâques 1848, Kierkegaard se rend compte que, loin d’être l’exception, il est au fond dans l’état universel ; tout le monde vit dans le désespoir, même ceux qui ne se savent y être, ayant suspendu leur vie au hasard, ayant fui leur moi pour tout ce que Pascal nomme le divertissement.`,
-        auteur:"Jean-J. Gateau, introduction au <em>Traité du désespoir</em> de Sören Kierkegaard", image:"", lien:"" },
+  /* Case 16 : « this or that » — Boudin ou Boudin ?
+     Chaque choix = une image détourée + ce qui s'affiche au clic (texte, ou œuvre + légende). */
+  16: { type:"citation", titre:"Boudin ou Boudin ?", texte:"", auteur:"", image:"", lien:"",
+        duel:[
+          { image:"images/boudin-viande.png", alt:"Boudin noir",
+            texte:`Le boudin noir est l'un des aliments les plus riches en fer héminique (environ 22,8 mg pour 100 g), ce qui en fait un allié contre la fatigue et les carences.` },
+          { image:"images/olga-boudin.png", alt:"Olga Boudin",
+            oeuvre:"images/olga-boudin-fleurs.jpg",
+            legende:"<em>Des fleurs et des choses</em>, Olga Boudin" },
+        ] },
 
   17: { type:"citation", titre:"",
         texte:`(...) de quoi tu es capable ? C’est cette espèce d’expérimentation de la capacité, quoi. Essayer d’expérimenter la capacité, et en même temps, la construire en même temps qu’on l’expérimente. C’est très, c’est très concret. Or on n’a pas de savoir préalable. (...)

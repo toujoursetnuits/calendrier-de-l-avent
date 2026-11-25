@@ -429,6 +429,7 @@ function ouvrirCadeau(j){
     return;
   }
   if(c.fragments){ ouvrirFragments(j,c); return; }
+  if(c.duel){ ouvrirDuel(j,c); return; }
   const cat=catDe(j);
   let h=`<div class="carte"><div class="carte-tete" style="background:${cat.couleur};color:${cat.encre}">
     <span class="grand-num">${j}</span><span class="etiq">décembre<br>${cat.nom}</span></div><div class="carte-corps">`;
@@ -467,6 +468,30 @@ function montrerFragment(j,i){
   document.querySelector(".collage-grille").classList.add("choisi");
   const zone=document.getElementById("frag-citation");
   zone.innerHTML=`<blockquote>${f.texte}</blockquote>${f.source?`<p class="collage-source">Françoise Sagan · ${f.source}</p>`:""}`;
+  zone.classList.remove("apparait"); void zone.offsetWidth; zone.classList.add("apparait");
+  zone.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+/* ---------- Case « this or that » (ex. Boudin ou Boudin, case 16) ---------- */
+function ouvrirDuel(j,c){
+  const bout=(f,i)=>`<button class="duel-bout" style="--r:${i?4:-5}deg;--d:${i*120}ms"
+      onclick="montrerDuel(${j},${i})" aria-label="${f.alt}"><img src="${f.image}" alt="${f.alt}"></button>`;
+  afficher(`<div class="carte carte-collage carte-duel"><div class="collage">
+    <div class="collage-titre"><span class="collage-jour">${j}</span>
+      <span class="collage-nom">${c.titre}</span></div>
+    <div class="duel-scene">${bout(c.duel[0],0)}<span class="duel-ou">ou</span>${bout(c.duel[1],1)}</div>
+    <div class="collage-citation" id="duel-reponse" aria-live="polite"></div>
+    <button class="btn collage-fermer" onclick="fermer()">Fermer</button></div></div>`);
+}
+function montrerDuel(j,i){
+  const f=CADEAUX[j].duel[i];
+  document.querySelectorAll(".duel-bout").forEach((b,k)=>b.classList.toggle("actif",k===i));
+  document.querySelector(".duel-scene").classList.add("choisi");
+  const zone=document.getElementById("duel-reponse");
+  zone.classList.toggle("avec-oeuvre",!!f.oeuvre);
+  zone.innerHTML=f.oeuvre
+    ? `<img class="duel-oeuvre" src="${f.oeuvre}" alt=""><p class="collage-source">${f.legende||""}</p>`
+    : `<p class="duel-texte">${f.texte}</p>`;
   zone.classList.remove("apparait"); void zone.offsetWidth; zone.classList.add("apparait");
   zone.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
