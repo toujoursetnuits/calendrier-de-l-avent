@@ -443,19 +443,20 @@ function ouvrirCadeau(j){
   afficher(h+`<button class="btn" style="margin-top:1rem" onclick="fermer()">Fermer</button></div></div>`);
 }
 
-/* ---------- Case à morceaux (ex. Sagan, case 23) ----------
+/* ---------- Case à morceaux (ex. Sagan case 24, Robert célèbres cases 12 et 19) ----------
    Collage de 9 photos détourées sur papier rouge ; un clic révèle la citation. */
 const COLLAGE=[ // rotation (deg), décalage vertical (px), taille (%)
   [-6,6,100],[4,-4,92],[-3,10,96],[5,-6,98],[-4,0,104],[7,4,90],[-5,-2,96],[3,8,100],[-7,0,94]];
 function ouvrirFragments(j,c){
-  let h=`<div class="carte carte-collage"><div class="collage">
+  const style=c.style?` carte-${c.style}`:"";
+  let h=`<div class="carte carte-collage${style}"><div class="collage">
     <div class="collage-titre"><span class="collage-jour">${j}</span>
-      <span class="collage-nom">Françoise Sagan</span></div>
+      <span class="collage-nom">${c.nom||c.titre||""}</span></div>
     <div class="collage-grille">`;
   c.fragments.forEach((f,i)=>{
     const [r,y,t]=COLLAGE[i%9];
     h+=`<button class="collage-bout" style="--r:${r}deg;--y:${y}px;--t:${t}%;--d:${i*60}ms"
-      onclick="montrerFragment(${j},${i})" aria-label="Citation ${i+1}"><img src="${f.image}" alt=""></button>`;
+      onclick="montrerFragment(${j},${i})" aria-label="${f.nom||"Citation "+(i+1)}"><img src="${f.image}" alt=""></button>`;
   });
   h+=`</div><div class="collage-citation" id="frag-citation" aria-live="polite"></div>
     <button class="btn collage-fermer" onclick="fermer()">Fermer</button></div></div>`;
@@ -467,7 +468,15 @@ function montrerFragment(j,i){
   boutons[i].classList.add("vu");
   document.querySelector(".collage-grille").classList.add("choisi");
   const zone=document.getElementById("frag-citation");
-  zone.innerHTML=`<blockquote>${f.texte}</blockquote>${f.source?`<p class="collage-source">Françoise Sagan · ${f.source}</p>`:""}`;
+  const c=CADEAUX[j];
+  if(f.mot){ // un mot et sa définition (Robert célèbres)
+    const syn=(f.synonymes||[]).map(([m,l])=>l?`<a href="${l}" target="_blank" rel="noopener">${m}</a>`:`<span>${m}</span>`).join(", ");
+    zone.innerHTML=`<p class="mot">${f.mot}</p><p class="mot-nature">${f.nature||""}</p>
+      <p class="mot-def">${f.definition}${syn?` <span class="mot-syn">➙ ${syn}</span>`:""}</p>
+      <p class="collage-source">${f.nom?f.nom+" · ":""}d'après <a href="https://dictionnaire.lerobert.com" target="_blank" rel="noopener">Le Robert</a></p>`;
+  } else {
+    zone.innerHTML=`<blockquote>${f.texte}</blockquote>${f.source?`<p class="collage-source">${c.signature?c.signature+" · ":""}${f.source}</p>`:""}`;
+  }
   zone.classList.remove("apparait"); void zone.offsetWidth; zone.classList.add("apparait");
   zone.scrollIntoView({behavior:"smooth",block:"nearest"});
 }

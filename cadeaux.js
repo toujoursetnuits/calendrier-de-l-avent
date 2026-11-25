@@ -98,69 +98,31 @@ cette vie.`,
         texte:`Creativity is a muscle I mistook for a bone. I won’t take it for granted now that I have learned it the hard way.`,
         auteur:"Salomé", image:"", lien:"" },
 
-  12: { type:"poeme", titre:"",
-        texte:`Dès que je pense à ma mamie, je pleure.
-C’est catastrophique.
-Car même si je ne le dirai probablement jamais à voix haute,
-Je pense (très) souvent à elle.
-Je ne sais pas pourquoi,
-Après toutes ces années,
-Je me surprends encore à me demander ce qu’elle aurait pensé de telle ou telle situations.
-
-Parfois,
-Par peur de la perdre,
-Alors que c’est déjà le cas,
-Je fais des choses rien que pour elle.
-Comme si elle pouvait le voir, et sourire.
-Mais je crois surtout que ça me fait plaisir à moi, de me la remémorer.
-
-Je me suis achetée des orchidées pour mon petit studio parisien, alors que je n’aime pas spécialement ces fleurs, juste parce que c’étaient ses préférées.
-J’écris à mes amis « oh mazette » parce qu’en cliquant sur le bouton envoyer, je peux l’entendre le dire.
-Hier, je me suis attardée devant les boudoirs au supermarché.
-
-Elle nous trouvait gâtés, mon frère et moi.
-Et je ne m’en rendais pas compte à l’époque,
-Mes amies l’étaient autant que moi,
-Mais je l’étais, je le suis encore.
-Par rapport à elle, plus jeune,
-Mais aussi par rapport aux autres enfants de mon âge.
-Ce n’est pas que matériel,
-c’est aussi l’amour inconditionnel.
-
-Ma mamie, c’était le printemps et le cynisme.
-Joli mélange.
-
-Ma mamie, elle était devenue aigrie avec la vieillesse. C’est ce que maman nous répétait. Et si c’était vrai, je crois qu’elle avait toujours eu une prédisposition à râler. En plus de la vie qui l’avait rendue ainsi.
-(Mais si j’avais vécu ne serait-ce que le quart de ce qu’elle a enduré, je pense que je serais plus qu’un peu aigrie.)
-
-Mamie, c’était aussi le printemps. Avant toute chose, le printemps. Après tout, elle est née le 24 avril.
-Mamie, c’est ma définition du printemps. Et Papy, son soleil.
-
-Mamie, après l’hiver, après la guerre, la pauvreté, la faim, la mort de ton frère à moto, de ton père à la mine, après avoir renoncé à ta bourse d’études pour aider ta mère, après les enfants hors mariage, après les violences conjugales, tu te relèves.
-Je pense que tu avais à peu près mon âge, ça me fait mal.
-Je ne m’en serais pas sortie.
-
-Mamie, t’as toujours été extrêmement fière de tes enfants,
-Aujourd’hui, j’espère que tu ne le vois pas,
-Mais ils ne se parlent plus.
-Enfin si, mais pas tous,
-– Pour des broutilles en plus,
-Et je crois que cela te rendrait malade.
-Je sais que ça rend Maman malade.
-Et je l’espère de tout mon cœur, que cela n’est qu’une phase, un peu longue.
-Je le crois.
-
-Hormis ça, Mamie, ne t’en fais pas,
-Tout le monde va bien, à peu près.
-
-Quand je suis lasse de la vie, je pense à toi.
-Le fardeau que tu m’as laissé est terrible,
-Celui de devoir avoir foi, toujours, en le retour du printemps.
-
-Merci Mamie pour les bourgeons
-Je m’occupe des fleurs.`,
-        auteur:"Salomé", image:"", lien:"" },
-
+  /* Case 12 : Robert célèbres (1/2).
+     Chaque Robert = un autocollant détouré (images/robert-….png) + un mot et sa définition du Robert.
+     Champs : nom (le Robert), mot, nature, definition, synonymes [ [mot, lien], … ] (lien facultatif). */
+  12: { type:"lecture", titre:"Robert célèbres", nom:"Robert célèbres", style:"robert", texte:"", auteur:"", image:"", lien:"",
+        fragments:[
+          { image:"images/robert-deniro.png", nom:"Robert De Niro",
+            mot:"Suranné·e", nature:"adjectif",
+            definition:"Qui a cessé d'être en usage, qui évoque une époque révolue.",
+            synonymes:[["démodé","https://dictionnaire.lerobert.com/definition/demode"],
+                       ["désuet","https://dictionnaire.lerobert.com/definition/desuet"],
+                       ["obsolète","https://dictionnaire.lerobert.com/definition/obsolete"],
+                       ["vieillot","https://dictionnaire.lerobert.com/definition/vieillot"]] },
+          { image:"images/robert-badinter.png", nom:"Robert Badinter",
+            mot:"Pandiculation", nature:"nom féminin",
+            definition:"Mouvement qui consiste en un étirement de tous les membres accompagné d'un bâillement." },
+          { image:"images/robert-capa.png", nom:"Robert Capa",
+            mot:"Disert", nature:"adjectif",
+            definition:"Qui parle avec facilité et élégance.",
+            synonymes:[["éloquent","https://dictionnaire.lerobert.com/definition/eloquent"]] },
+          { image:"images/robert-boyle.png", nom:"Robert Boyle",
+            mot:"Persifler", nature:"verbe",
+            definition:"Tourner (qqn) en ridicule par des propos ironiques ou faussement louangeurs.",
+            synonymes:[["se moquer","https://dictionnaire.lerobert.com/definition/moquer"],
+                       ["railler","https://dictionnaire.lerobert.com/definition/railler"]] },
+        ] },
   13: { type:"poeme", titre:"",
         texte:`Maman me dit de déposer plainte pour agression,
 A cette même police pour laquelle elle me dit de me protéger quand je descends dans la rue.
@@ -206,10 +168,26 @@ Tant de gens meurent sans savoir, et ne sauront jamais ce dont ils étaient capa
         texte:`Le monde doit être romantisé. C’est ainsi qu’on retrouvera le sens originel.`,
         auteur:"Novalis, <em>Le Monde doit être romantisé</em>", image:"", lien:"" },
 
-  19: { type:"citation", titre:"",
-        texte:`J'ai commencé à faire de moi-même un être littéraire, quelqu'un qui vit les choses comme si elles devaient être écrites un jour.`,
-        auteur:"Annie Ernaux, <em>Mémoire de fille</em>", image:"", lien:"" },
-
+  /* Case 19 : Robert célèbres (2/2). Même fonctionnement que la case 12. */
+  19: { type:"lecture", titre:"Robert célèbres", nom:"Robert célèbres", style:"robert", texte:"", auteur:"", image:"", lien:"",
+        fragments:[
+          { image:"images/robert-schuman.png", nom:"Robert Schuman",
+            mot:"Pusillanime", nature:"adjectif et nom",
+            definition:"Qui manque d'audace, craint le risque, les responsabilités.",
+            synonymes:[["craintif","https://dictionnaire.lerobert.com/definition/craintif"],
+                       ["timoré","https://dictionnaire.lerobert.com/definition/timore"]] },
+          { image:"images/robert-le-pieux.png", nom:"Robert le Pieux",
+            mot:"Clabauder", nature:"verbe",
+            definition:"Protester de manière malveillante. <em>Clabauder sur, contre qqn.</em>",
+            synonymes:[["dénigrer"],["médire"]] },
+          { image:"images/robert-pattinson.png", nom:"Robert Pattinson",
+            mot:"Sémillant", nature:"adjectif",
+            definition:"D'une vivacité, d'un entrain plaisants.",
+            synonymes:[["fringant","https://dictionnaire.lerobert.com/definition/fringant"]] },
+          { image:"images/robert-stevenson.png", nom:"Robert Louis Stevenson",
+            mot:"Derechef", nature:"adverbe, littéraire",
+            definition:"Une seconde fois ; encore une fois." },
+        ] },
   20: { type:"citation", titre:"",
         texte:`En fin de compte, tout s'arrange, sauf la difficulté d'être, qui ne s'arrange pas.`,
         auteur:"Jean Cocteau, <em>La Difficulté d'être</em>", image:"", lien:"" },
@@ -246,10 +224,14 @@ J'ai pleuré tout Paris. J'ai pleuré toute ma vie.`,
   lien: ""
 },
 
-  /* Case 23 : Françoise Sagan en 9 morceaux.
+  23: { type:"citation", titre:"",
+        texte:`J'ai commencé à faire de moi-même un être littéraire, quelqu'un qui vit les choses comme si elles devaient être écrites un jour.`,
+        auteur:"Annie Ernaux, <em>Mémoire de fille</em>", image:"", lien:"" },
+
+  /* Case 24 : Françoise Sagan en 9 morceaux.
      Chaque morceau = une photo détourée (images/sagan-1.png … sagan-9.png) + une citation.
      Les photos sont en noir et blanc, détourées sur fond transparent. */
-  23: { type:"citation", titre:"Françoise Sagan, en morceaux", texte:"", auteur:"", image:"", lien:"",
+  24: { type:"citation", titre:"Françoise Sagan, en morceaux", nom:"Françoise Sagan", signature:"Françoise Sagan", texte:"", auteur:"", image:"", lien:"",
         fragments:[
           { image:"images/sagan-1.png",
             texte:`J'expliquais à mon père que j'allais faire une licence de lettres, que je fréquenterais des érudits, que je voulais devenir célèbre et assommante.`,
@@ -279,7 +261,6 @@ J'ai pleuré tout Paris. J'ai pleuré toute ma vie.`,
             texte:`Sans partager avec mon père cette aversion pour la laideur qui nous faisait souvent fréquenter des gens stupides, j’éprouvais en face des gens dénués de tout charme physique une sorte de gêne, d’absence ; leur résignation à ne pas plaire me semblait une infirmité indécente. Car, que cherchions-nous, sinon plaire ? Je ne sais pas encore aujourd'hui si ce goût de conquête cache une surabondance de vitalité, un goût d'emprise ou le besoin furtif, inavoué, d'être rassuré sur soi-même, soutenu.`,
             source:"<em>Bonjour tristesse</em>" },
         ] },
-  24: { type:"lecture",  titre:"", texte:"", auteur:"", image:"", lien:"" },
   25: { titre:"Joyeux Noël !", texte:"Votre sapin est décoré avec tous les cadeaux de décembre." },
 };
 
