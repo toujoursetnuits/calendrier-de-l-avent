@@ -470,7 +470,7 @@ function montrerFragment(j,i){
   const zone=document.getElementById("frag-citation");
   const c=CADEAUX[j];
   if(f.mot){ // un mot et sa définition (Robert célèbres)
-    const syn=(f.synonymes||[]).map(([m,l])=>l?`<a href="${l}" target="_blank" rel="noopener">${m}</a>`:`<span>${m}</span>`).join(", ");
+    const syn=(f.synonymes||[]).map(([m])=>`<span>${m}</span>`).join(", ");
     zone.innerHTML=`<p class="mot">${f.mot}</p><p class="mot-nature">${f.nature||""}</p>
       <p class="mot-def">${f.definition}${syn?` <span class="mot-syn">➙ ${syn}</span>`:""}</p>
       <p class="collage-source">${f.nom?f.nom+" · ":""}d'après <a href="https://dictionnaire.lerobert.com" target="_blank" rel="noopener">Le Robert</a></p>`;
